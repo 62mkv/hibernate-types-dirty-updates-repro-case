@@ -56,7 +56,12 @@ class ReproTest {
         List<Student> res = em.createQuery("from Student").getResultList();
         assertThat(res)
                 .hasSize(1)
-                .allSatisfy(s -> assertThat(s.getCreatedAt()).isNotNull());
+                .allSatisfy(s -> {
+                    assertThat(s.getCreatedAt()).isNotNull();
+                    assertThat(s.getDetails().getStudentName()).isEqualTo("kiki");
+                    assertThat(s.getDetails().getCourses())
+                            .containsExactly(algebraCourse);
+                });
     }
 
 }
